@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
+    id 'maven-publish'
 }
 
 android {
@@ -36,9 +37,29 @@ dependencies {
     implementation "androidx.appcompat:appcompat:${androidXVersion}"
     implementation "androidx.constraintlayout:constraintlayout:${constraintlayoutVersion}"
     implementation "com.google.android.material:material:${materialVersion}"
+    api 'com.elvishew:xlog:1.11.0'
+//    implementation fileTree("libs")
 
-    // For debug online
-    implementation project(path: ':libuvc')
-    api project(path: ':libnative')
-    implementation project(path: ':libpush')
+    implementation "com.github.jiangdongguo.AndroidUSBCamera:libuvc:3.2.10.1"
+    implementation "com.github.jiangdongguo.AndroidUSBCamera:libpush:3.2.10.1"
+    implementation "com.github.jiangdongguo.AndroidUSBCamera:libnative:3.2.10.1"
+}
+
+publishing {
+    publications {
+        aarPublication(MavenPublication) {
+            afterEvaluate {
+                // Publishes the AAR artifact
+                from components.release
+            }
+
+            groupId = 'com.github.jiangdongguo.AndroidUSBCamera'
+            artifactId = 'libausbc'
+            version = '3.2.10.1'
+        }
+    }
+
+    repositories {
+        mavenLocal() // Publishes to Maven Local
+    }
 }

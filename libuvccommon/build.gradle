@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
 /*
  * libcommon
  * utility/helper classes for myself
@@ -47,4 +48,23 @@ dependencies {
 	implementation "androidx.appcompat:appcompat:1.0.2"
 	implementation "androidx.recyclerview:recyclerview:1.0.0"
 	implementation "androidx.preference:preference:1.0.0"
+}
+
+publishing {
+    publications {
+        aarPublication(MavenPublication) {
+            afterEvaluate {
+                // Publishes the AAR artifact
+                from components.release
+            }
+
+            groupId = 'com.github.jiangdongguo.AndroidUSBCamera'
+            artifactId = 'libuvccommon'
+            version = '3.2.10.1'
+        }
+    }
+
+    repositories {
+        mavenLocal() // Publishes to Maven Local
+    }
 }

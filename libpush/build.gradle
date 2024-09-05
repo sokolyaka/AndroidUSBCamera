@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
+    id 'maven-publish'
 }
 
 android {
@@ -39,4 +40,23 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+}
+
+publishing {
+    publications {
+        aarPublication(MavenPublication) {
+            afterEvaluate {
+                // Publishes the AAR artifact
+                from components.release
+            }
+
+            groupId = 'com.github.jiangdongguo.AndroidUSBCamera'
+            artifactId = 'libpush'
+            version = '3.2.10.1'
+        }
+    }
+
+    repositories {
+        mavenLocal() // Publishes to Maven Local
+    }
 }
