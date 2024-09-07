@@ -37,6 +37,7 @@ android {
     buildFeatures {
         viewBinding true
     }
+    ndkVersion '21.1.6352462'
 
     // libuvc module should need set local.properties
     // eg: ndk.dir=D\:\\Developer\\Environment\\AndroidSdks\\ndk\\21.0.6113669
